@@ -11,7 +11,6 @@ import java.io.Serializable;
 public class RoomEntity implements Serializable {
 
     @Id
-    //hacer que sea autoincremental
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_id")
     private long id;

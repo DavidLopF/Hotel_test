@@ -1,9 +1,6 @@
 package com.hotel.api_hotel.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +12,7 @@ public class ReserveEntity implements Serializable {
 
     @Id
     @Column(name = "reserve_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "room_id")
