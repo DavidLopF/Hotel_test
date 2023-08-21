@@ -1,7 +1,6 @@
 package com.hotel.api_hotel.service.hotel;
 
-import com.hotel.api_hotel.entity.HotelEntity;
-import com.hotel.api_hotel.entity.HotelEntityWithUbication;
+import com.hotel.api_hotel.entity.tables.HotelEntityWithUbication;
 
 import java.util.List;
 

@@ -17,8 +17,8 @@ VALUES(4, 'Cartagena');
 /**** hoteles ***/
 
 INSERT INTO public.hotel
-(hotel_id, capacity, number_rooms, site_id)
-VALUES(1, 252, 42, 1);
+(hotel_id, capacity, number_rooms, site_id, img_url)
+VALUES(1, 252, 42, 1, 'https://www.hotelplazabogota.com/wp-content/uploads/2018/10/Hotel-Plaza-Bogota-Exterior-1.jpg');
 INSERT INTO public.hotel
 (hotel_id, capacity, number_rooms, site_id)
 VALUES(2, 132, 22, 2);
@@ -28,6 +28,7 @@ VALUES(3, 132, 22, 3);
 INSERT INTO public.hotel
 (hotel_id, capacity, number_rooms, site_id)
 VALUES(4, 88, 11, 4);
+
 
 /*** tipos ***/
 INSERT INTO public."type"
@@ -237,4 +238,54 @@ INSERT INTO public.rooms
 VALUES(84, 1, 6, 2, 300000, '3', 2);
 
 
+CREATE TABLE IF NOT EXISTS public.reserve
+(
+    reserve_id bigint NOT NULL DEFAULT nextval('reserve_reserve_id_seq'::regclass),
+    date_in character varying(255) COLLATE pg_catalog."default",
+    date_out character varying(255) COLLATE pg_catalog."default",
+    dni_client character varying(255) COLLATE pg_catalog."default",
+    room_id bigint,
+    CONSTRAINT reserve_pkey PRIMARY KEY (reserve_id)
+    )
 
+
+/** function to insert a reserve que retorne la reserva insertada */
+CREATE OR REPLACE FUNCTION do_reserve(date_in varchar, date_out varchar, dni_client varchar, room_id int )
+RETURNS TABLE (status int, response json)
+AS $$
+DECLARE
+room record;
+reservation record;
+BEGIN
+
+select * into room from rooms ro where ro.room_id = $4;
+raise notice 'La room selecionada es :%', room;
+    if date_in > date_out then
+        raise notice 'La fecha de entrada no puede ser mayor que la fecha de salida';
+return query select 400 as status, json_build_object('message', 'La fecha de entrada no puede ser mayor que la fecha de salida') as response;
+return;
+end if;
+    if to_date(date_in, 'DD-MM-YYYY') < now()::date or to_date(date_out, 'DD-MM-YYYY') < now()::date then
+        raise notice 'La fecha de entrada o salida no puede ser menor a la fecha actual';
+return query select 400 as status, json_build_object('message', 'La fecha de entrada o salida no puede ser menor a la fecha actual') as response;}
+        return;
+end if;
+    if room is null then
+        raise notice 'La habitacion no existe';
+return query select 400 as status, json_build_object('message', 'La habitacion no existe') as response;
+return;
+
+end if;
+    if room.available = 0 then
+        raise notice 'La habitacion no esta disponible';
+return query select 400 as status, json_build_object('message', 'La habitacion no esta disponible') as response;
+return;
+end if;
+insert into reserve (date_in, date_out, dni_client, room_id) values (to_date(date_in, 'DD-MM-YYYY'), to_date(date_out, 'DD-MM-YYYY'), dni_client, $4)
+    returning * into reservation;
+update rooms ro set available = 0 where ro.room_id = $4;
+return query select 200 as status, json_build_object('message', 'Reserva realizada con exito', 'reservation', reservation) as response;
+
+END;
+$$
+Language plpgsql

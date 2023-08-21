@@ -1,7 +1,6 @@
 package com.hotel.api_hotel.service.hotel;
 
-import com.hotel.api_hotel.entity.HotelEntity;
-import com.hotel.api_hotel.entity.HotelEntityWithUbication;
+import com.hotel.api_hotel.entity.tables.HotelEntityWithUbication;
 import com.hotel.api_hotel.repository.HotelEjbRepository;
 import com.hotel.api_hotel.repository.HotelRepository;
 import lombok.extern.log4j.Log4j2;

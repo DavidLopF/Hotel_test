@@ -1,4 +1,4 @@
-package com.hotel.api_hotel.entity;
+package com.hotel.api_hotel.entity.tables;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,4 +28,10 @@ public class HotelEntityWithUbication implements Serializable {
 
     @Column(name = "site_name")
     private String ubication;
+
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    @Column(name = "description")
+    private String description;
 }

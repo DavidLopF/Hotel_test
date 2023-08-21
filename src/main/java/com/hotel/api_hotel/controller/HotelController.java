@@ -1,12 +1,12 @@
 package com.hotel.api_hotel.controller;
 
 import com.hotel.api_hotel.dto.GeneralResponseDTO;
-import com.hotel.api_hotel.entity.HotelEntity;
-import com.hotel.api_hotel.entity.HotelEntityWithUbication;
+import com.hotel.api_hotel.entity.tables.HotelEntityWithUbication;
 import com.hotel.api_hotel.service.hotel.HotelServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @Log4j2
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class HotelController {
 
     @Autowired

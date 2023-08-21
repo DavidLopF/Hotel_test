@@ -1,6 +1,6 @@
 package com.hotel.api_hotel.service.site;
 
-import com.hotel.api_hotel.entity.SiteEntity;
+import com.hotel.api_hotel.entity.tables.SiteEntity;
 import com.hotel.api_hotel.repository.SiteRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

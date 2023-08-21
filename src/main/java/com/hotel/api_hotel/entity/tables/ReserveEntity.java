@@ -1,4 +1,4 @@
-package com.hotel.api_hotel.entity;
+package com.hotel.api_hotel.entity.tables;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +26,8 @@ public class ReserveEntity implements Serializable {
 
     @Column(name = "date_out")
     private String dateOut;
+
+
 
 
 }

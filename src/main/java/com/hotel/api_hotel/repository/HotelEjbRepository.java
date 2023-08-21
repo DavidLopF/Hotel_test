@@ -1,6 +1,6 @@
 package com.hotel.api_hotel.repository;
 
-import com.hotel.api_hotel.entity.HotelEntityWithUbication;
+import com.hotel.api_hotel.entity.tables.HotelEntityWithUbication;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

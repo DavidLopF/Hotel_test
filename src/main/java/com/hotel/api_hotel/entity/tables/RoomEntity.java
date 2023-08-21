@@ -1,4 +1,4 @@
-package com.hotel.api_hotel.entity;
+package com.hotel.api_hotel.entity.tables;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.hotel.api_hotel.service.room;
 
-import com.hotel.api_hotel.entity.RoomsInformationViewEntity;
+import com.hotel.api_hotel.entity.tables.RoomsInformationViewEntity;
 import com.hotel.api_hotel.repository.RoomsInformationViewRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +30,21 @@ public class RoomsServiceImpl implements RoomService {
             return null;
         }
 
+    }
+
+    @Override
+    public List<RoomsInformationViewEntity> getAllByHotelId(long hotelId) {
+        log.info("***** RoomsServiceImpl.getAllByHotelId() *****");
+        List<RoomsInformationViewEntity> roomsInformationViewEntities = roomsInformationViewRepository.findAllByHotelId(hotelId);
+        try{
+            if (roomsInformationViewEntities.isEmpty()) {
+                log.info("***** RoomsServiceImpl.getAllByHotelId() -> roomsInformationViewEntities.isEmpty() *****");
+                return null;
+            }
+            return roomsInformationViewEntities;
+        }catch (Exception e){
+            log.error("***** RoomsServiceImpl.getAllByHotelId() -> ERROR: " + e.getMessage() + " *****");
+            return null;
+        }
     }
 }
